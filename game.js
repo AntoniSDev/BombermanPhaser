@@ -33,12 +33,7 @@ function create() {
   this.player = this.add.image(300, 300, 'joueur');
   
   // Créer les rochers
-  this.add.image(200, 200, 'rocher');
-  this.add.image(600, 400, 'rocher');
   
-  // Créer les poteaux
-  this.add.image(100, 100, 'poteau');
-  this.add.image(700, 500, 'poteau');
   
   // Créer la bombe
   this.add.image(300, 400, 'bombe');
@@ -66,11 +61,14 @@ function create() {
     this.add.image((mapWidth - 1) * tileSize, i * tileSize, 'tile').setOrigin(0);
   }
   
-  // Ajout des coins manquants
-  this.add.image(0, 0, 'tile').setOrigin(0);
-  this.add.image((mapWidth - 1) * tileSize, 0, 'tile').setOrigin(0);
-  this.add.image(0, mapHeight * tileSize - tileSize, 'tile').setOrigin(0);
-  this.add.image((mapWidth - 1) * tileSize, mapHeight * tileSize - tileSize, 'tile').setOrigin(0);
+  // Générer les poteaux sur la carte
+  for (let x = tileSize; x < (mapWidth - 1) * tileSize; x += tileSize * 2) {
+    for (let y = tileSize; y < (mapHeight - 1) * tileSize; y += tileSize * 2) {
+      const poteau = this.add.image(x, y, 'poteau');
+      poteau.setOrigin(0, 0); // Définir l'origine en coin supérieur gauche du sprite
+    }
+  }
+  
 }
 
 function update() {
